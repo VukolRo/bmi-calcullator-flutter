@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'constants.dart';
+import 'round_icon_button.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -14,6 +15,8 @@ class _InputPageState extends State<InputPage> {
   // Color femaleCardColor = unmarkedField;
   Gender? selectedGender;
   int height = 180;
+  int weight = 50;
+  int age = 18;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +106,7 @@ class _InputPageState extends State<InputPage> {
                   ),
                 ],
               ),
-              colour: kInactiveCardColor,
+              colour: kActiveCardColor,
             ),
           ),
           Expanded(
@@ -111,18 +114,99 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    colour: kInactiveCardColor,
+                    colour: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'WEIGHT',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: kNumbersTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                operation: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                }),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              operation: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colour: kInactiveCardColor,
+                    colour: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'AGE',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kNumbersTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                operation: () {
+                                  setState(() {
+                                    age--;
+                                  });
+                                }),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              operation: () {
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
           Container(
+            child: TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/result');
+              },
+              child: Text(
+                'CALCULATE YOUR BMI',
+                style: TextStyle(color: Colors.white, fontSize: 18.0),
+              ),
+            ),
             color: kSecondaryColor,
             margin: EdgeInsets.only(top: 10.0),
             width: double.infinity,
