@@ -1,93 +1,80 @@
+import 'package:bmi_calculator/reusable_card.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
 class ResultPage extends StatelessWidget {
-  final String result = 'some result';
+  ResultPage(
+      {required this.interpretation,
+      required this.bmiResult,
+      required this.resultText});
+
+  // final String bmiResult = '23.0';
+  // final String resultText = 'normal';
+  // final String interpretation = 'You have a normal body weight. Good job!';
+  final String bmiResult;
+  final String resultText;
+  final String interpretation;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            'YOUR RESULT',
-            style: TextStyle(fontSize: 30.0),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(15.0),
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                'Your Result',
+                style: kTitleTextStyle,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 5,
+            child: ReusableCard(
+              colour: kActiveCardColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    resultText.toUpperCase(),
+                    style: kResultTextStyle,
+                  ),
+                  Text(
+                    bmiResult,
+                    style: kBMITextStyle,
+                  ),
+                  Text(
+                    interpretation,
+                    textAlign: TextAlign.center,
+                    style: kBodyTextStyle,
+                  ),
+                ],
+              ),
+            ),
           ),
           Container(
-            color: kInactiveCardColor,
-            margin: EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 20.0),
-                      child: Text(
-                        result,
-                        style: TextStyle(
-                          fontSize: 30.0,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(20.0),
-                      child: Text(
-                        '22.0',
-                        style: TextStyle(
-                            fontSize: 75.0, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(20.0),
-                      child: Text('normal BMI ramge'),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(20.0),
-                      child: Text('18.5 - 25 kg/m2'),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(20.0),
-                      child: Text(
-                        'You have a normal body weight. Good job!',
-                        style: TextStyle(fontSize: 25.0),
-                      ),
-                    ),
-                    Container(
-                        color: kPlusMinusButtonColor,
-                        margin: EdgeInsetsDirectional.all(50.0),
-                        width: double.infinity,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Save result',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 20.0),
-                          ),
-                        ))
-                  ],
-                ),
-                Container(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/result');
-                    },
-                    child: Text(
-                      'CALCULATE YOUR BMI',
-                      style: TextStyle(color: Colors.white, fontSize: 18.0),
-                    ),
-                  ),
-                  color: kSecondaryColor,
-                  margin: EdgeInsets.only(top: 10.0),
-                  width: double.infinity,
-                  height: kBottomPanelHeight,
-                ),
-              ],
+            child: TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'RE-CALCULATE YOUR BMI',
+                style: kLargeButtonTextStyle,
+              ),
             ),
+            color: kSecondaryColor,
+            margin: EdgeInsets.only(top: 10.0),
+            width: double.infinity,
+            height: kBottomPanelHeight,
           ),
         ],
       ),

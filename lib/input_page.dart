@@ -1,9 +1,11 @@
+import 'package:bmi_calculator/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'constants.dart';
 import 'round_icon_button.dart';
+import 'calculator_brain.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -22,6 +24,7 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
@@ -200,11 +203,22 @@ class _InputPageState extends State<InputPage> {
           Container(
             child: TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/result');
+                CalculatorBrain calculation =
+                    CalculatorBrain(height: height, weight: weight);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultPage(
+                      bmiResult: calculation.calculateBMI(),
+                      resultText: calculation.getResult(),
+                      interpretation: calculation.getInterpretation(),
+                    ),
+                  ),
+                );
               },
               child: Text(
                 'CALCULATE YOUR BMI',
-                style: TextStyle(color: Colors.white, fontSize: 18.0),
+                style: kLargeButtonTextStyle,
               ),
             ),
             color: kSecondaryColor,
